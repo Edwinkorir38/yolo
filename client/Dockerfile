@@ -1,28 +1,34 @@
-# Use an official Node runtime as a parent image
+# ---------- Stage 1: Build ----------
 FROM node:14-slim AS build
 
-# Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy the package.json and package-lock.json files to the container
+# Copy dependency files
 COPY package*.json ./
 
-# Install application dependencies
+# Install dependencies (dev included)
 RUN npm install
 
-# Copy the rest of the application code to the container
+# Copy the frontend source
 COPY . .
 
-FROM alpine:3.16.7
+# Run the build step (important for React/Vue/Angular apps)
+RUN npm run build
+
+
+# ---------- Stage 2: Runtime ----------
+FROM node:14-alpine AS runtime
 
 WORKDIR /app
 
-RUN apk update && apk add npm
+# Copy only package files for production install
+COPY --from=build /usr/src/app/package*.json ./
+RUN npm install --only=production
 
-COPY --from=build /usr/src/app /app
+# Copy build output and any needed files
+COPY --from=build /usr/src/app ./
 
-# Expose the port the app runs on
 EXPOSE 3000
 
-# Define the command to run your app
+# Start frontend (npm start from package.json)
 CMD ["npm", "start"]
