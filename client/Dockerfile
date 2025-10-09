@@ -1,34 +1,30 @@
 # ---------- Stage 1: Build ----------
-FROM node:14-slim AS build
+FROM node:14-alpine AS build
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy dependency files
 COPY package*.json ./
 
-# Install dependencies (dev included)
+# Install dependencies
 RUN npm install
 
-# Copy the frontend source
+# Copy source code
 COPY . .
 
-# Run the build step (important for React/Vue/Angular apps)
+# Build the React app
 RUN npm run build
 
-
 # ---------- Stage 2: Runtime ----------
-FROM node:14-alpine AS runtime
+FROM nginx:alpine AS runtime
 
-WORKDIR /app
+# Copy the build output to Nginx's web folder
+COPY --from=build /app/build /usr/share/nginx/html
 
-# Copy only package files for production install
-COPY --from=build /usr/src/app/package*.json ./
-RUN npm install --only=production
+# Optional: copy custom nginx config
+# COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy build output and any needed files
-COPY --from=build /usr/src/app ./
+EXPOSE 80
 
-EXPOSE 3000
-
-# Start frontend (npm start from package.json)
-CMD ["npm", "start"]
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
