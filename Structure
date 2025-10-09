@@ -1,18 +1,27 @@
-ansible-playbook/
-├── roles/
-│   ├── setup-mongodb/
-│   │   ├── tasks/
-│   │   │   └── main.yml
-│   │   └── vars/
-│   │       └── main.yml
-│   ├── backend-deployment/
-│   │   ├── tasks/
-│   │   │   └── main.yml
-│   │   └── vars/
-│   │       └── main.yml
-│   └── frontend-deployment/
-│       ├── tasks/
-│       │   └── main.yml
-│       └── vars/
-│           └── main.yml
-└── playbook.yml
+YOLO/
+│
+├── backend/
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── server.js                
+│   └── upload.js
+│
+├── client/
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── src/                      
+│   
+│
+├── docker-compose.yml            
+│
+├── .dockerignore                 
+│
+├── .gitignore                    
+│
+├── README.md                     
+│
+├── explanation.md                
+│
+└── image.png                     
