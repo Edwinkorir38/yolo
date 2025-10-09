@@ -1,5 +1,5 @@
 # ---------- Stage 1: Build ----------
-FROM node:14 AS build
+FROM node:18 AS build
 
 WORKDIR /usr/src/app
 
@@ -17,7 +17,7 @@ COPY . .
 
 
 # ---------- Stage 2: Runtime ----------
-FROM node:14-alpine AS runtime
+FROM node:18-alpine AS runtime
 
 WORKDIR /app
 
