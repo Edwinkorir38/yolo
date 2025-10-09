@@ -7,3 +7,10 @@ vault.yml
 .vscode
 .vscode/*
 .vscode/*.json
+Vagrantfile
+playbook.yml
+inventory.yml
+hosts
+frontend-deployment.yaml
+backend-deployment.yaml
+ansible.cfg
