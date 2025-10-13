@@ -1,4 +1,4 @@
-# ---------- Stage 1: Build ----------
+#Stage 1: Build 
 FROM node:14-alpine AS build
 
 WORKDIR /app
@@ -15,14 +15,11 @@ COPY . .
 # Build the React app
 RUN npm run build
 
-# ---------- Stage 2: Runtime ----------
+# Stage 2: Runtime
 FROM nginx:alpine AS runtime
 
 # Copy the build output to Nginx's web folder
 COPY --from=build /app/build /usr/share/nginx/html
-
-# Optional: copy custom nginx config
-# COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 

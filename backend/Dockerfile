@@ -12,11 +12,9 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# If you had a build step (e.g. TS), you’d run it here:
-# RUN npm run build
 
 
-# ---------- Stage 2: Runtime ----------
+# Stage 2: Runtime 
 FROM node:18-alpine AS runtime
 
 WORKDIR /app
