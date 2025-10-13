@@ -1,16 +1,19 @@
-app-mongo-data
-app-mongo-data/
-vars.yml
-vault.yml
-.vagrant/
+# Ignore IDE and dev environment files
 .vscode/
-.vscode
-.vscode/*
-.vscode/*.json
+.vagrant/
 Vagrantfile
-playbook.yml
+
+# Ignore Ansible-related files
+ansible.cfg
 inventory.yml
 hosts
+playbook.yml
+vars.yml
+vault.yml
+
+# Ignore deployment manifests
 frontend-deployment.yaml
 backend-deployment.yaml
-ansible.cfg
+
+# Ignore local MongoDB data directory
+app-mongo-data/
