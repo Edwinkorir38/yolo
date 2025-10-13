@@ -17,34 +17,6 @@ The project demonstrates Docker containerization concepts — creating lightweig
 | **Database** | MongoDB | Stores product data persistently |
 
 
-
-## **Repository Structure**
-
-
-
-YOLO/
-│
-├── backend/ # Node.js backend API
-│ ├── Dockerfile
-│ ├── package.json
-│ ├── server.js
-│ ├── routes/
-│ └── models/
-│
-├── client/ # React frontend
-│ ├── Dockerfile
-│ ├── package.json
-│ ├── src/
-│ └── public/
-│
-├── docker-compose.yml # Orchestrates all 3 services
-├── explanation.md # Implementation reasoning
-├── README.md # Documentation file
-└── .gitignore
-
-
-
-
 ##  **Microservice Architecture**
 
 Each component runs in its own container:
