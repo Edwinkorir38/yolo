@@ -1,10 +1,17 @@
  README.md
 #  YOLO (E-Commerce Microservice-Dockerized)
 
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![Docker Compose](https://img.shields.io/badge/Docker--Compose-1E90FF?style=for-the-badge&logo=docker&logoColor=white)
+
+
 This project is a **containerized microservice e-commerce platform** built using **Node.js**, **React**, and **MongoDB**.  
 It allows users to add and view retail products in a dashboard-like interface.
 
-The project demonstrates Docker containerization concepts — creating lightweight, isolated services for the backend, frontend, and database — orchestrated using **Docker Compose**.
+The project demonstrates Docker containerization concepts,  creating lightweight, isolated services for the backend, frontend, and database orchestrated using **Docker Compose**.
 
 
 
@@ -159,7 +166,40 @@ A custom bridge network app-net enables inter-container communication:
 * Descriptive commit messages
 
  ### **DockerHub Screenshot**
-![Alt text](image.png)
+![Alt text](images/dockerhub-image.png)
+
+ ##  Verification (Containers Running)
+
+Below are screenshots showing the successful containerized setup of the YOLO application.
+
+###  1. Docker Containers Running
+
+```
+bash
+
+docker compose ps
+```
+ ![Docker containers running](images/docker-container-image.png)
+
+### 2. Application Logs
+```
+bash
+
+docker compose logs
+```
+
+![Docker logs](images/docker-logs.png)
+
+**Logs confirm:**
+
+* Backend connected to MongoDB successfully
+
+* Frontend (Nginx) started and serving React app
+
+* MongoDB ready and listening on port ```27017```
+
+
+
 
  ### **Author**
 
