@@ -1,27 +1,34 @@
 YOLO/
 │
-├── backend/
-│   ├── Dockerfile
-│   ├── package.json
+├── backend/                     # Backend (Node.js + Express)
+│   ├── models/                  # Database models/schemas
+│   ├── node_modules/            # Backend dependencies
+│   ├── routes/                  # API route handlers
+│   ├── .gitignore
+│   ├── Dockerfile               # Backend Docker build instructions
 │   ├── package-lock.json
-│   ├── server.js                
-│   └── upload.js
-│
-├── client/
-│   ├── Dockerfile
 │   ├── package.json
+│   ├── server.js                # Main backend entry point
+│   └── upload.js                # Handles uploads or file processing
+│
+├── client/                      # Frontend (React or similar)
+│   ├── node_modules/            # Frontend dependencies
+│   ├── public/                  # Static assets (HTML, images, icons)
+│   ├── src/                     # React components, pages, etc.
+│   ├── .gitignore
+│   ├── Dockerfile               # Frontend Docker build instructions
 │   ├── package-lock.json
-│   ├── src/                      
-│   
+│   └── package.json
 │
-├── docker-compose.yml            
+├── images/                      # Project or documentation images
 │
-├── .dockerignore                 
+├── roles/                       # Ansible roles (for automation or provisioning)
 │
-├── .gitignore                    
+├── .dockerignore                # Ignore files for Docker context
+├── .gitignore                   # Ignore patterns for Git
 │
-├── README.md                     
+├── docker-compose.yaml          # Defines multi-container setup (frontend, backend, DB)
 │
-├── explanation.md                
-│
-└── image.png                     
+├── explanation.md               # Documentation / notes
+├── README.md                    # Project overview and setup instructions
+└── Structure                    # Additional documentation or outline
