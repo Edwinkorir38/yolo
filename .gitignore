@@ -1,19 +1,5 @@
 # Ignore IDE and dev environment files
 .vscode/
-.vagrant/
-Vagrantfile
+.vagrant
 
-# Ignore Ansible-related files
-ansible.cfg
-inventory.yml
-hosts
-playbook.yml
-vars.yml
-vault.yml
 
-# Ignore deployment manifests
-frontend-deployment.yaml
-backend-deployment.yaml
-
-# Ignore local MongoDB data directory
-app-mongo-data/
