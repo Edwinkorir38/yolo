@@ -1,0 +1,26 @@
+# tasks file for backend_role
+
+- name: Build backend Docker image
+  become: true
+  community.docker.docker_image:
+    name: "{{ backend_container_name }}"
+    tag: "{{ backend_image_tag }}"
+    source: build
+    build:
+      path: "{{ app_dir }}/backend"
+    state: present
+
+- name: Run backend container
+  become: true
+  community.docker.docker_container:
+    name: "{{ backend_container_name }}"
+    image: "{{ backend_container_name }}:{{ backend_image_tag }}"
+    ports:
+      - "{{ backend_port }}:5000"
+    command: "npm start"
+    networks:
+      - name: app-net
+    env:
+      MONGO_URL: "mongodb://{{ mongo_container_name }}:27017/yoloDB"
+    state: started
+    restart_policy: always

@@ -1,0 +1,28 @@
+---
+# tasks file for post_deploy
+
+- name: Verify backend is reachable
+  uri:
+    url: "http://localhost:5000/api/products"   
+    status_code: 200
+  register: backend_check
+  retries: 5
+  delay: 5
+  until: backend_check.status == 200
+  ignore_errors: yes
+
+- name: Verify frontend is reachable
+  uri:
+    url: "http://localhost:3000"      
+    status_code: 200
+  register: frontend_check
+  retries: 5
+  delay: 5
+  until: frontend_check.status == 200
+  ignore_errors: yes
+
+- name: Display verification results
+  debug:
+    msg:
+      - "Backend reachable: {{ backend_check.status | default('Failed') }}"
+      - "Frontend reachable: {{ frontend_check.status | default('Failed') }}"

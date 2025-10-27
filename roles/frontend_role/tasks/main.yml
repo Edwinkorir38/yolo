@@ -1,0 +1,26 @@
+---
+# tasks file for frontend_role
+
+- name: Build frontend Docker image
+  community.docker.docker_image:
+    name: "{{ frontend_container_name }}"
+    tag: "{{ frontend_image_tag }}"
+    source: build
+    build:
+      path: "{{ app_dir }}/client"
+    state: present
+
+- name: Run frontend container
+  community.docker.docker_container:
+    name: "{{ frontend_container_name }}"
+    image: "{{ frontend_container_name }}:{{ frontend_image_tag }}"
+    ports:
+      - "{{ frontend_port }}:80"
+    networks:
+      - name: app-net
+    env:
+      REACT_APP_BACKEND_URL: "http://{{ backend_container_name }}:5000/api"
+    state: started
+    restart_policy: always
+
+    

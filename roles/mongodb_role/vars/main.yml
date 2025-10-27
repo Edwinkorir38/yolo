@@ -1,0 +1,10 @@
+---
+# vars file for mongodb_role
+# MongoDB role variables
+
+mongo_container_name: "yolo-mongo"
+mongo_image: "mongo:6"
+mongo_port: "27017"
+mongo_data_volume: "app-mongo-data:/data/db"
+mongo_restart_policy: "always"
+

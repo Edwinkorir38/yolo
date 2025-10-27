@@ -1,0 +1,22 @@
+---
+# vars file for backend_role
+# Backend container settings
+backend_container_name: "yolo-backend"
+backend_image_name: "edwinkorir38/yolo-backend:v1.0.0"
+backend_image_tag: "v1.0.0"
+
+# Path to backend Dockerfile
+backend_build_path: "{{ app_dir }}/backend"
+
+# Port mapping (host:container)
+backend_port: "5000"
+
+# Environment variables
+backend_env:
+  MONGO_URL: "mongodb://{{ mongo_container_name }}:{{ mongo_port }}"
+  NODE_ENV: "production"
+
+# Restart policy
+backend_restart_policy: "always"
+
+

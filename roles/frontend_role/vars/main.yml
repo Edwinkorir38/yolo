@@ -1,0 +1,19 @@
+---
+# vars file for frontend_role
+# Frontend container settings
+frontend_container_name: "yolo-client"
+frontend_image_name: "edwinkorir38/yolo-client:v1.0.1"
+frontend_image_tag: "v1.0.1"
+
+# Path to frontend Dockerfile
+frontend_build_path: "{{ app_dir }}/client"
+
+# Port mapping (host:container)
+frontend_port: "3000"
+
+# Environment variables
+frontend_env:
+  REACT_APP_BACKEND_URL: "http://{{ backend_container_name }}:{{ backend_port }}"
+
+# Restart policy
+frontend_restart_policy: "always"

@@ -1,0 +1,13 @@
+---
+# vars file for common
+system_packages:
+  - git
+  - docker.io
+  - docker-compose
+
+repo_url: "https://github.com/Edwinkorir38/yolo.git"
+repo_branch: "master"
+app_dir: "/home/vagrant/YOLO"
+
+docker_service_name: "docker"
+docker_user: "vagrant"

@@ -1,0 +1,15 @@
+---
+# tasks file for mongodb_role
+
+- name: Run MongoDB container
+  community.docker.docker_container:
+    name: "{{ mongo_container_name }}"
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - name: app-net
+    volumes:
+      - app-mongo-data:/data/db
+    state: started
+    restart_policy: always

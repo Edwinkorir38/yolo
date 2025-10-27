@@ -1,0 +1,45 @@
+---
+# tasks file for common
+- name: Test Connectivity
+  ping:
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install dependencies
+  apt:
+    name:
+      - git
+      - docker.io
+      - docker-compose
+    state: present
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Verify Docker installation
+  command: docker --version
+  register: docker_version
+
+- name: Show Docker version
+  debug:
+    msg: "Docker version: {{ docker_version.stdout }}"
+
+
+- debug:
+    msg: "Docker version installed: {{ docker_version.stdout }}"
+
+- name: Ensure shared app network exists
+  community.docker.docker_network:
+    name: app-net
+    state: present
+
+
+- name: Clone the repository
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ app_dir }}"
+    version: master
