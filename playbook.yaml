@@ -1,0 +1,21 @@
+- name: Configure YOLO (E-Commerce Microservice-Dockerized)
+  hosts: all
+  become: true
+ 
+  roles:
+    - role: common
+      tags: ["setup", "common"]
+    
+    - role: mongodb_role
+      tags: ["database"]
+
+    - role: backend_role
+      tags: ["backend"]
+
+    - role: frontend_role     
+      tags: ["frontend"]  
+
+    - role: post_deploy
+      tags: [verify] 
+    
+   
