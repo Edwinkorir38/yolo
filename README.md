@@ -292,30 +292,24 @@ This will:
 
 # Directory Structure
 ```
-.
-├── Vagrantfile
-├── playbook.yml
+YOLO/
+├── .vagrant/
+├── .vscode/
+├── backend/
+├── client/
+├── images/
+├── roles/
+├── .dockerignore
+├── .gitignore
 ├── ansible.cfg
-├── inventory.ini
-├── README.md
+├── docker-compose.yaml
 ├── explanation.md
-└── roles/
-    ├── common/
-    │   ├── tasks/
-    │   ├── vars/
-    │   └── handlers/
-    ├── mongodb_role/
-    │   ├── tasks/
-    │   ├── vars/
-    ├── backend_role/
-    │   ├── tasks/
-    │   ├── vars/
-    ├── frontend_role/
-    │   ├── tasks/
-    │   ├── vars/
-    └── post_deploy/
-        ├── tasks/
-        ├── vars/
+├── hosts
+├── playbook.yaml
+├── README.md
+├── Structure/
+└── Vagrantfile
+
  ```
 
  ## Running the Playbook Manually
@@ -325,7 +319,8 @@ This will:
 bash
 vagrant ssh
 cd /vagrant
-ansible-playbook playbook.yaml -i inventory.ini
+ansible-playbook playbook.yaml or
+vagrant provision
 ```
 
 You can also run specific roles using tags:
@@ -431,45 +426,49 @@ vagrant destroy -f
 **Vagrant Up Output**
 ```
 bash
-Vagrant up
-Vagrant status
+vagrant up
+vagrant status
 ````
-![]()
+![vagrant status](images/vagrant_status.png)
 
 **Vagrant provision**	
 ```
 bash
-Vagrant provision
+vagrant provision
 ```
-![]()
+![vagrant provision](images/vagrant_provision.png)
 **Running Containers**
 ```
 bash
+vagrant ssh
 sudo docker ps
 ```
-![]()
+![vagrant containers](images/containers_vagrant.png)
 
 **Frontend Running**
 ```
 bash
 curl http://localhost:3000
 ```	
-![]()
+![front end](images/front_end.png)
 **Backend API Test**
 ```
 bash
-curl http://localhost:5000/api
+curl http://localhost:5000/api/products
+
 ```
-![]()
-**Check MongoDB connection.**
+![backend](images/back_end.png)
+**Check backend logs.**
 ```
 bash
-mongo --eval "db.stats()"
+docker logs --tail 50 yolo-backend
+
 ```
+![backend logs](images/backend_logs.png)
 
 ## Additional Files
 File	Description
-![]()
+
 * README.md	- Documentation for setup and usage.
 
 * explanation.md -	Detailed explanation of role logic and order of execution.
