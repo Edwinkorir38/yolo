@@ -1,34 +1,17 @@
 YOLO/
-│
-├── backend/                     # Backend (Node.js + Express)
-│   ├── models/                  # Database models/schemas
-│   ├── node_modules/            # Backend dependencies
-│   ├── routes/                  # API route handlers
-│   ├── .gitignore
-│   ├── Dockerfile               # Backend Docker build instructions
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── server.js                # Main backend entry point
-│   └── upload.js                # Handles uploads or file processing
-│
-├── client/                      # Frontend (React or similar)
-│   ├── node_modules/            # Frontend dependencies
-│   ├── public/                  # Static assets (HTML, images, icons)
-│   ├── src/                     # React components, pages, etc.
-│   ├── .gitignore
-│   ├── Dockerfile               # Frontend Docker build instructions
-│   ├── package-lock.json
-│   └── package.json
-│
-├── images/                      # Project or documentation images
-│
-├── roles/                       # Ansible roles (for automation or provisioning)
-│
-├── .dockerignore                # Ignore files for Docker context
-├── .gitignore                   # Ignore patterns for Git
-│
-├── docker-compose.yaml          # Defines multi-container setup (frontend, backend, DB)
-│
-├── explanation.md               # Documentation / notes
-├── README.md                    # Project overview and setup instructions
-└── Structure                    # Additional documentation or outline
+├── .vagrant/
+├── .vscode/
+├── backend/
+├── client/
+├── images/
+├── roles/
+├── .dockerignore
+├── .gitignore
+├── ansible.cfg
+├── docker-compose.yaml
+├── explanation.md
+├── hosts
+├── playbook.yaml
+├── README.md
+├── Structure/
+└── Vagrantfile
