@@ -1,5 +1,40 @@
 # Ignore IDE and dev environment files
 .vscode/
 .vagrant
+# OS / Editors
+.DS_Store
+*~
+.vscode/
+.idea/
+
+# Vagrant
+.vagrant/
+
+# Ansible
+*.vault.yml
+vault.yml
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+env/
+venv/
+
+# Node / React
+node_modules/
+build/
+dist/
+*.log
+
+# Docker
+docker-compose.override.yml
+app-mongo-data/
+
+# Misc
+*.swp
+*.swo
+*.bak
+*.tmp
 
 
