@@ -200,7 +200,6 @@ docker compose logs
 
 
 
-
  ### **Author**
 
 **Name:** Edwin Korir
@@ -212,3 +211,299 @@ docker compose logs
  ### **License**
 
 This project is for educational purposes - containerization and microservice architecture demonstration.
+
+
+
+# 2.  (IAC) Automated Deployment using Ansible & Vagrant
+
+## Overview
+This project demonstrates **Infrastructure as Code (IaC)** using **Vagrant** and **Ansible** to automate the provisioning, configuration, and deployment of the **Yolomy E-Commerce web application**.
+
+The application is a **containerized microservice system** built using:
+- **Node.js** for the backend
+- **React.js** for the frontend
+- **MongoDB** as the database
+
+The automation ensures consistent, reproducible, and fully functional deployments across environments with minimal manual effort.
+
+---
+
+##  Tools and Technologies Used
+
+| Tool | Purpose |
+|------|----------|
+| **Vagrant** | Automates the creation and provisioning of the virtual machine. |
+| **Ansible** | Handles configuration management and deployment automation. |
+| **Docker** | Containerizes the frontend, backend, and database services. |
+| **Ubuntu 20.04 (Geerlingguy Box)** | Virtual machine image for deployment. |
+| **Git & GitHub** | Version control and project collaboration. |
+
+---
+
+##  Project Architecture
+
+###  Components
+1. **Frontend Role** — Builds and serves the React app via Docker (Nginx).
+2. **Backend Role** — Deploys the Node.js API service.
+3. **MongoDB Role** — Configures the MongoDB container for data persistence.
+4. **Common Role** — Installs Docker, dependencies, and system packages.
+5. **Post-Deploy Role** — Verifies that the services are up and accessible.
+
+###  Infrastructure Flow
+```text
+Host Machine
+   └── Vagrant (provisions VM)
+         └── Ansible Playbook (runs automatically)
+               ├── Common Role → setup dependencies
+               ├── MongoDB Role → start DB container
+               ├── Backend Role → start API container
+               ├── Frontend Role → start React container
+               └── Post-Deploy → verify successful deployment
+
+```
+              
+
+## Step-by-Step Setup Instructions
+
+## 1. Clone the Repository
+```
+bash
+git clone https://github.com/edwinkorir38/yolo.git
+
+cd yolo
+```
+## 2. Start the Virtual Machine
+
+### Provision the Ubuntu server using Vagrant:
+```
+bash
+
+vagrant up
+
+```
+
+This will:
+
+* Download and initialize the Ubuntu 20.04 box (geerlingguy/ubuntu2004).
+
+* Automatically configure the VM via the Vagrantfile.
+
+* Trigger Ansible provisioning.
+
+# Directory Structure
+```
+.
+├── Vagrantfile
+├── playbook.yml
+├── ansible.cfg
+├── inventory.ini
+├── README.md
+├── explanation.md
+└── roles/
+    ├── common/
+    │   ├── tasks/
+    │   ├── vars/
+    │   └── handlers/
+    ├── mongodb_role/
+    │   ├── tasks/
+    │   ├── vars/
+    ├── backend_role/
+    │   ├── tasks/
+    │   ├── vars/
+    ├── frontend_role/
+    │   ├── tasks/
+    │   ├── vars/
+    └── post_deploy/
+        ├── tasks/
+        ├── vars/
+ ```
+
+ ## Running the Playbook Manually
+
+### If you need to re-run the playbook after provisioning:
+```
+bash
+vagrant ssh
+cd /vagrant
+ansible-playbook playbook.yaml -i inventory.ini
+```
+
+You can also run specific roles using tags:
+```
+bash
+
+ansible-playbook playbook.yaml --tags "frontend"
+```
+---
+## Accessing the Application
+
+Service	Port	URL
+Frontend (React)	3000 -	http://localhost:3000
+
+---
+
+Backend (Node.js)	5000	- http://localhost:5000/api/products
+
+---
+MongoDB	27017	localhost (internal use only)
+
+---
+### To verify:
+```
+bash
+
+curl http://localhost:3000
+curl http://localhost:5000/api/products
+
+```
+
+## Key Ansible Features Used
+| Feature | Purpose |
+|------|----------|
+| **Roles** | Structured automation for modular deployments. |
+| **Tags** | Selective execution of tasks for testing and debugging. |
+| **Variables** | Parameterized configuration for flexibility. |
+| **Blocks** | Logical grouping of related tasks with error handling. |
+| **Handlers** | Restart services when configuration changes. |
+## Design Decisions
+
+* Used Ansible roles to ensure modular, reusable, and maintainable automation.
+
+* Geerlingguy Ubuntu box simplifies provisioning and ensures compatibility.
+
+* Docker containers isolate services for easier debugging and scaling.
+
+* Tags streamline testing specific sections during development.
+
+* Post-deployment verification ensures the environment runs successfully after provisioning.
+
+## Example Playbook Execution Output
+```
+bash
+
+PLAY [Configure YOLO (E-Commerce Microservice-Dockerized)] *********************
+
+TASK [common : Update apt cache] **********************************************
+ok: [default]
+
+TASK [common : Install Docker] ************************************************
+changed: [default]
+
+TASK [mongodb_role : Run MongoDB Container] ***********************************
+changed: [default]
+
+TASK [backend_role : Deploy Node.js Backend] **********************************
+changed: [default]
+
+TASK [frontend_role : Deploy React Frontend] **********************************
+changed: [default]
+
+TASK [post_deploy : Verify Application Accessibility] *************************
+ok: [default]
+
+```
+
+##  Verification and Testing
+
+After successful provisioning:
+
+1. Open your browser and visit http://localhost:3000
+
+   → You should see the Yolomy web interface.
+
+2. Add a new product from the UI.
+
+3. Refresh the page to confirm data persistence (MongoDB is working correctly).
+
+## Cleanup
+
+To destroy the virtual environment:
+```
+bash
+
+vagrant destroy -f
+```
+
+##  Screenshots (Evidence)
+
+
+### Description	Example Screenshot
+**Vagrant Up Output**
+```
+bash
+Vagrant up
+Vagrant status
+````
+![]()
+
+**Vagrant provision**	
+```
+bash
+Vagrant provision
+```
+![]()
+**Running Containers**
+```
+bash
+sudo docker ps
+```
+![]()
+
+**Frontend Running**
+```
+bash
+curl http://localhost:3000
+```	
+![]()
+**Backend API Test**
+```
+bash
+curl http://localhost:5000/api
+```
+![]()
+**Check MongoDB connection.**
+```
+bash
+mongo --eval "db.stats()"
+```
+
+## Additional Files
+File	Description
+![]()
+* README.md	- Documentation for setup and usage.
+
+* explanation.md -	Detailed explanation of role logic and order of execution.
+
+* hosts - hosts definition for Ansible.
+
+* ansible.cfg - 	Configuration file for Ansible runtime behavior.
+
+* Vagrantfile -	Defines VM provisioning and Ansible integration.
+
+## Author
+
+Edwin Korir
+
+ekorir99@gmail.com
+
+# Conclusion
+
+This project demonstrates:
+
+* How Vagrant can provision reproducible environments.
+
+* How Ansible can automate end-to-end configuration and deployment.
+
+* How Dockerized microservices can be managed efficiently through IaC.
+
+With a single command, your entire e-commerce stack can be provisioned, deployed, and verified all through automation.
+
+Command:
+```
+bash
+
+vagrant up
+```
+
+
+That’s all it takes to deploy the Yolomy app automatically.
