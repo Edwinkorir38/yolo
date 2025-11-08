@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yolo-backend-deployment
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: yolo-backend
+  template:
+    metadata:
+      labels:
+        app: yolo-backend
+    spec:
+     containers:
+      - name: yolo-backend
+        image: docker.io/edwinkorir38/yolo-backend:v1.0.3
+        ports:
+          - containerPort: 5000
+        env:
+          - name: MONGODB_URI
+            value: "mongodb://mystatefulset-mongo-0.mongo-headless:27017/yoloDB"
+          - name: NODE_ENV
+            value: "production"
