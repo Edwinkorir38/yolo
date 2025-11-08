@@ -1,0 +1,14 @@
+# frontend-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: yolo-client-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: yolo-client
+  ports:
+    - port: 80        # Service port
+      targetPort: 80  # Container port
+      protocol: TCP
+      nodePort: 30000 # NodePort for external access
