@@ -479,11 +479,6 @@ File	Description
 
 * Vagrantfile -	Defines VM provisioning and Ansible integration.
 
-## Author
-
-Edwin Korir
-
-ekorir99@gmail.com
 
 # Conclusion
 
@@ -506,3 +501,177 @@ vagrant up
 
 
 That’s all it takes to deploy the Yolomy app automatically.
+
+# YOLO E-commerce App - Kubernetes Orchestration Part
+
+This project is a simple e-commerce application deployed using **Kubernetes** and Docker, showcasing orchestration concepts including **StatefulSets**, **LoadBalancer services**, and **persistent volumes**.
+
+---
+
+## **Live Application URLs (Azure)**
+
+- **Frontend:** [http://4.253.22.196](http://4.253.22.196)  
+- **Backend API:** [http://4.253.65.52:5000/api/products](http://4.253.65.52:5000/api/products)
+
+---
+
+## **Project Structure manifest**
+```
+K8s-manifests/
+├── database/
+│ ├── mongo-headless-service.yaml
+│ ├── mongo-service.yaml
+│ └── mongo-statefulset.yaml
+├── frontend/
+│ ├── frontend-deployment.yaml
+│ └── frontend-service.yaml
+├── backend/
+│ ├── backend-deployment.yaml
+│ └── backend-service.yaml
+Dockerfile (frontend & backend)
+README.md
+explanation.md
+```
+
+
+---
+
+## **Running Locally with Minikube**
+
+You can test the application locally before deploying to Azure.
+
+### 1. Start Minikube
+
+```bash
+minikube start
+
+```
+
+### 2. Apply Kubernetes manifests
+```
+bash
+kubectl apply -f K8s-manifests/database/
+kubectl apply -f K8s-manifests/backend/
+kubectl apply -f K8s-manifests/frontend/
+```
+
+### 3. Access services via Minikube
+```bash
+minikube service yolo-backend-service --url
+minikube service yolo-client-service --url
+```
+
+
+* Use the URLs returned to test frontend and backend connectivity.
+
+### 4. Test backend API
+```
+bash
+curl http://4.253.65.52:5000/api/products
+```
+
+
+* Should return the JSON array of products.
+
+### 5. Verify Persistent Volumes
+
+* Delete a Mongo pod:
+```
+bash
+
+kubectl delete pod mystatefulset-mongo-0
+```
+
+
+* Ensure that data persists:
+```
+bash
+
+curl http://4.253.65.52:5000/api/products
+```
+
+### Docker Build & Run Locally
+
+### Backend:
+```
+bash
+
+docker build -t edwinkorir38/yolo-backend:v1.0.3 ./backend
+docker run -p 5000:5000 edwinkorir38/yolo-backend:v1.0.3
+```
+
+
+### Frontend:
+```
+bash
+
+docker build -t edwinkorir38/yolo-frontend:v1.0.9 ./frontend
+docker run -p 80:3000 edwinkorir38/yolo-frontend:v1.0.9
+```
+
+
+* Backend API: ```http://localhost:5000/api/products```
+
+* Frontend: ```http://localhost:3000```
+
+### Kubernetes Deployment (Azure)
+
+* **MongoDB StatefulSet** with persistent storage via 
+``` volumeClaimTemplates.```
+
+* **Services:**
+
+* ```mongo-service``` & ```mongo-headless``` for internal DB communication.
+
+* ```yolo-backend-service``` & ```yolo-client-service``` (LoadBalancer) for public access.
+
+* Deployments: Frontend and backend deployments with replicas, labels, and annotations for high availability.
+
+### Docker Image Tags
+
+
+* Backend: ```edwinkorir/yolo-backend:v1.0.3```
+
+* Frontend: ```edwinkorir/yolo-frontend:v1.0.9```
+
+Tagged for clarity and version control.
+
+### Git Workflow
+
+* Descriptive commits for every major step:
+
+    * Dockerfile creation & updates
+
+    * Kubernetes manifests creation
+
+    * Port-forwarding fixes
+
+    * Frontend/backend integration
+
+* Minimum of 10 commits to show project evolution.
+
+* Repository includes README.md and explanation.md.
+
+### Testing and Validation
+
+* Frontend correctly fetches products from backend API.
+
+* MongoDB StatefulSet ensures data persistence on pod restart.
+
+* Kubernetes services expose pods to the internet via LoadBalancer.
+
+* Application fully functional: products display and cart actions succeed.
+
+References
+
+* [Kubernetes StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
+
+* [Azure Kubernetes Service](https://learn.microsoft.com/en-us/azure/aks/)
+
+* [Docker Hub](https://hub.docker.com/)
+
+## Author
+
+Edwin Korir
+
+ekorir99@gmail.com
