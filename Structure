@@ -1,9 +1,9 @@
+
 YOLO/
-├── .vagrant/
-├── .vscode/
 ├── backend/
 ├── client/
 ├── images/
+├── K8s-manifests/
 ├── roles/
 ├── .dockerignore
 ├── .gitignore
@@ -13,5 +13,5 @@ YOLO/
 ├── hosts
 ├── playbook.yaml
 ├── README.md
-├── Structure/
+├── Structure
 └── Vagrantfile
