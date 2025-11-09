@@ -192,3 +192,97 @@ sudo docker exec -it yolo-mongo mongo
 
 
 
+---
+
+## **explanation.md**
+
+
+# YOLO E-commerce App - Kubernetes Orchestration Explanation
+
+This document explains the choices made for the Week 8 Independent Project regarding Kubernetes orchestration, persistent storage, and Git workflow.
+
+---
+
+## **1. Choice of Kubernetes Objects**
+
+- **StatefulSet (MongoDB)**: Used for the database to ensure persistent storage and stable network identities for each pod. Each pod has its own PersistentVolume via `volumeClaimTemplates`.  
+- **Deployments (Frontend & Backend)**: Provide high availability and scalability. ReplicaSets maintain the desired number of pods.  
+- **Services**:
+  - **LoadBalancer**: Exposes frontend and backend pods to the internet.  
+  - **ClusterIP & Headless Service**: For MongoDB internal communication and stable pod DNS.
+
+**Reasoning**: StatefulSet is essential for storage apps like MongoDB, ensuring data persists even after pod restarts. Deployments ensure backend/frontend remain available.
+
+---
+
+## **2. Method Used to Expose Pods**
+
+- Frontend: `yolo-client-service` (LoadBalancer) → accessible via public IP.  
+- Backend: `yolo-backend-service` (LoadBalancer) → accessible via public IP and serves `/api/products`.  
+- Internal DB: `mongo-headless` and `mongo-service` → for inter-pod communication.
+
+**Reasoning**: LoadBalancer exposes applications for grading and testing. Headless service ensures stable networking for StatefulSet.
+
+---
+
+## **3. Use of Persistent Storage**
+
+- MongoDB pods use `volumeClaimTemplates` to create PersistentVolumeClaims.  
+- Each pod mounts its PV at `/data/db`.  
+- Deleting a pod does not result in data loss; the PV is reattached to the recreated pod.
+
+**Reasoning**: Ensures persistence of cart data and product information, meeting rubric requirements for persistent storage.
+
+---
+
+## **4. Local Testing with Minikube**
+
+Before deploying to Azure, all Kubernetes objects were tested locally using Minikube:
+
+1. **StatefulSet**: Verified pods restart and attach correct PersistentVolume.  
+2. **Services**: Backend and frontend exposed using Minikube `service` command to confirm accessibility.  
+3. **Persistence**: Deleting Mongo pod did not cause data loss, confirming PV configuration.  
+4. **Frontend Integration**: Frontend fetched products successfully from the local backend URL.  
+5. **Port Forwarding**: Used `kubectl port-forward` for direct pod access when debugging.
+
+**Reasoning**: Demonstrates ability to run orchestration locally before cloud deployment.
+
+---
+
+## **5. Git Workflow**
+
+- Commits are descriptive and chronological:  
+  - Dockerfile updates  
+  - Kubernetes manifests creation  
+  - Backend/frontend integration  
+  - LoadBalancer and port-forwarding fixes  
+- Minimum 10 commits to track project evolution.  
+- Repository includes `README.md` and `explanation.md` for clarity.
+
+---
+
+## **6. Live URLs (Azure)**
+
+- **Frontend:** [http://4.253.22.196](http://4.253.22.196)  
+- **Backend API:** [http://4.253.65.52:5000/api/products](http://4.253.65.52:5000/api/products)
+
+---
+
+## **7. Docker Image Tagging**
+
+- Backend: `edwinkorir/yolo-backend:v1.0.3`  
+- Frontend: `edwinkorir/yolo-frontend:v1.0.9`
+
+**Reasoning**: Clear, versioned tags ensure reproducibility and identification of containers.
+
+---
+
+## **8. Testing and Validation**
+
+- Frontend fetches products correctly from backend API.  
+- MongoDB StatefulSet ensures persistence on pod restarts.  
+- Kubernetes services correctly expose pods to the internet.  
+- Application fully functional: adding items to cart works, products display, and backend API is accessible.
+
+
+
