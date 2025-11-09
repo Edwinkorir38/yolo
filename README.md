@@ -549,7 +549,7 @@ YOLO/
 
 * .gitignore: Specifies files to exclude from version control.
 
-ansible.cfg: Ansible configuration file.
+* ansible.cfg: Ansible configuration file.
 
 * docker-compose.yaml: Docker Compose configuration for local development.
 
@@ -603,6 +603,26 @@ bash
 kubectl apply -f K8s-manifests/database/
 kubectl apply -f K8s-manifests/backend/
 kubectl apply -f K8s-manifests/frontend/
+```
+### Check Deployment Status
+#### Pods
+```
+bash
+kubectl get pods
+```
+
+#### Services
+```
+bash
+kubectl get services
+```
+
+Make sure the backend and frontend services have an EXTERNAL-IP.
+
+#### Deployments
+```
+bash
+kubectl get deployments
 ```
 
 ### 3. Access services via Minikube
@@ -659,10 +679,6 @@ docker build -t edwinkorir38/yolo-frontend:v1.0.9 ./frontend
 docker run -p 80:3000 edwinkorir38/yolo-frontend:v1.0.9
 ```
 
-
-* Backend API: ```http://localhost:5000/api/products```
-
-* Frontend: ```http://localhost:3000```
 
 ### Kubernetes Deployment (Azure)
 
