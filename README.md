@@ -514,6 +514,56 @@ This project is a simple e-commerce application deployed using **Kubernetes** an
 - **Backend API:** [http://4.253.65.52:5000/api/products](http://4.253.65.52:5000/api/products)
 
 ---
+## Project Structure
+```
+YOLO/
+├── backend/
+├── client/
+├── images/
+├── K8s-manifests/
+├── roles/
+├── .dockerignore
+├── .gitignore
+├── ansible.cfg
+├── docker-compose.yaml
+├── explanation.md
+├── hosts
+├── playbook.yaml
+├── README.md
+├── Structure
+└── Vagrantfile
+```
+### Description
+
+* backend/: Backend service source code.
+
+* client/: Frontend React application.
+
+* images/: Images or assets for documentation or app.
+
+* K8s-manifests/: Kubernetes YAML manifests for deployments and services.
+
+* roles/: Ansible roles for configuration management.
+
+* .dockerignore: Specifies files to exclude from Docker builds.
+
+* .gitignore: Specifies files to exclude from version control.
+
+ansible.cfg: Ansible configuration file.
+
+* docker-compose.yaml: Docker Compose configuration for local development.
+
+* explanation.md: Project explanation and documentation.
+
+* hosts: Ansible inventory file.
+
+* playbook.yaml: Ansible playbook for provisioning.
+
+* README.md: Main project documentation.
+
+* Structure: File describing structure.
+
+* Vagrantfile: Vagrant configuration for VM setup.
 
 ## **Project Structure manifest**
 ```
