@@ -69,8 +69,8 @@ docker-compose up --build
 
 | Service        | URL                                                                      |
 | -------------- | ------------------------------------------------------------------------ |
-|  Frontend   | [http://localhost:3000](http://localhost:3000)                           |
-|  Backend API | [http://localhost:5000/api/products](http://localhost:5000/api/products) |
+|  Frontend   | ```[http://localhost:3000] ```                          |
+|  Backend API | ```[http://localhost:5000/api/products]```
 |  MongoDB    | `mongodb://yolo-mongo:27017/yoloDB` (internal access)                    |
 
 
@@ -333,11 +333,11 @@ ansible-playbook playbook.yaml --tags "frontend"
 ## Accessing the Application
 
 Service	Port	URL
-Frontend (React)	3000 -	http://localhost:3000
+Frontend (React)	3000 -	```http://localhost:3000```
 
 ---
 
-Backend (Node.js)	5000	- http://localhost:5000/api/products
+Backend (Node.js)	5000	- ```http://localhost:5000/api/products```
 
 ---
 MongoDB	27017	localhost (internal use only)
@@ -402,7 +402,7 @@ ok: [default]
 
 After successful provisioning:
 
-1. Open your browser and visit http://localhost:3000
+1. Open your browser and visit ```http://localhost:3000```
 
    → You should see the Yolomy web interface.
 
