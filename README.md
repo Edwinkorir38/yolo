@@ -736,6 +736,73 @@ References
 
 * [Docker Hub](https://hub.docker.com/)
 
+
+## Evidence Screenshots
+
+### 1. Kubernetes Pods
+Shows all pods running.
+
+> `kubectl get pods`
+
+![pods-screenshot](images/pods.png)
+
+---
+
+###  2. Kubernetes Services
+Shows external IP assigned.
+
+> `kubectl get svc`
+
+![services-screenshot](images/services.png)
+
+---
+
+###  3. Backend API Access
+Displays JSON response from backend.
+
+> `http://4.253.65.52:5000/api/products`
+
+![backend-screenshot](images/backend-api.png)
+
+`curl http://4.253.65.52:5000/api/products`
+
+![backend-curl-screenshot](images/backend-curl.png)
+---
+
+###  4. Frontend UI
+React app successfully loading data.
+
+![frontend-screenshot-yolomy](images/frontend-yolomy.png)
+
+![frontend-screenshot](images/frontend.png)
+
+
+
+### Conclusion  
+
+This project demonstrates a full-stack **MERN application deployment** on **Azure Kubernetes Service (AKS)**.  
+
+**Architecture Overview:**  
+- **MongoDB** - Deployed as a StatefulSet with persistent storage  
+- **Node/Express Backend** - Deployment exposed via LoadBalancer  
+- **React Frontend** - Publicly accessible through LoadBalancer  
+
+**Key Kubernetes Resources:**  
+- **Deployments**, **StatefulSets**, **Services**, and **Persistent Volume Claims (PVCs)** ensure reliability, scalability, and fault tolerance.  
+- The frontend communicates with the backend using **Kubernetes DNS/external IP**, while the backend connects to MongoDB internally.  
+
+**Key Highlights:**  
+- Cloud deployment on Azure  
+- Containerization & orchestration with Kubernetes  
+-  Persistent data storage  
+-  Scalable microservice architecture  
+-  Automated networking with Kubernetes Services  
+
+**In summary:**  
+AKS provides a **robust, scalable, and production-ready environment** for deploying microservices web applications with persistent storage.
+
+---
+
 ## Author
 
 Edwin Korir
